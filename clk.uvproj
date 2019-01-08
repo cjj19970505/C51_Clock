@@ -392,16 +392,6 @@
               <FilePath>.\Looper\Looper.c</FilePath>
             </File>
             <File>
-              <FileName>UniversalVars.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\Utility\UniversalVars.c</FilePath>
-            </File>
-            <File>
-              <FileName>UniversalVars.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\Utility\UniversalVars.h</FilePath>
-            </File>
-            <File>
               <FileName>SegScreen.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\SegScreen\SegScreen.c</FilePath>
@@ -420,6 +410,16 @@
               <FileName>Input.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\Input.h</FilePath>
+            </File>
+            <File>
+              <FileName>Time.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Time.h</FilePath>
+            </File>
+            <File>
+              <FileName>Time.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Time.c</FilePath>
             </File>
           </Files>
         </Group>
