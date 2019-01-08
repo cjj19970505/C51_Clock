@@ -1,0 +1,1 @@
+extern int uv_temp_i;
