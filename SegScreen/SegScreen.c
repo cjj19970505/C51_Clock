@@ -12,6 +12,7 @@ int segScreen_temp_i;
 
 void SegScreen_LooperUpdate(LOOPER *looper)
 {
+	
 	segScreen_shiftTimer += looper->deltaTime;
 	XBYTE[0x9000]= segScreen_led[SegScreen_ShiftMaskToIndex(segScreen_CurrShiftMask)];
 	XBYTE[0x8000]= segScreen_CurrShiftMask;
@@ -25,10 +26,13 @@ void SegScreen_LooperUpdate(LOOPER *looper)
 		}
 	}
 }
+/*
 void SegScreen_SetLed(int index, char ledMask)
 {
 	segScreen_led[index] = ledMask;
 }
+*/
+/*
 void SegScreen_Print_Int(int value)
 {
 	int temp;
@@ -64,7 +68,7 @@ void SegScreen_Print_Bin(int value)
 		segScreen_led[segScreen_temp_i] = segScreen_led_table[(value & 1<<segScreen_temp_i) == 0 ? 0: 1];
 	}
 }
-
+*/
 //Can only show dot(.) and number(0..9)
 void SegScreen_Print_String(char *str)
 {
@@ -84,6 +88,10 @@ void SegScreen_Print_String(char *str)
 			if(str[segScreen_temp_i] == ' ')
 			{
 				segScreen_led[segIndex] = 0;
+			}
+			else if(str[segScreen_temp_i] == '-')
+			{
+				segScreen_led[segIndex] = 0x40;
 			}
 			else
 			{

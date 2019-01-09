@@ -456,6 +456,26 @@
               <FileType>5</FileType>
               <FilePath>.\Utility.h</FilePath>
             </File>
+            <File>
+              <FileName>DateInterface.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\DateInterface.h</FilePath>
+            </File>
+            <File>
+              <FileName>DateInterface.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\DateInterface.c</FilePath>
+            </File>
+            <File>
+              <FileName>TaskSelector.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\TaskSelector.h</FilePath>
+            </File>
+            <File>
+              <FileName>TaskSelector.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\TaskSelector.c</FilePath>
+            </File>
           </Files>
         </Group>
       </Groups>

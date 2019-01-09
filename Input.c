@@ -50,10 +50,12 @@ void Input_LooperUpdate(LOOPER *looper)
 	checkInputTimer += looper->deltaTime;
 	
 }
+/*
 char Input_GetLatestKeyCode()
 {
 	return input_LatestKeycode;
 }
+*/
 char Input_GetKeyDown()
 {
 	if(input_HasKeyDown)

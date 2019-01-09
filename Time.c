@@ -3,6 +3,7 @@
 #include "Utility.h"
 int time_temp_i;
 void Int_To_Chars(int value, int decDigitCount, char *chars);
+
 void Time_ToString(TIME *time, char *str)
 {
 	Int_To_Chars(TIME_GET_HOUR(*time), 2, str);

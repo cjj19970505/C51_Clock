@@ -1,0 +1,1 @@
+void DateInterface_LooperUpdate(LOOPER *looper);

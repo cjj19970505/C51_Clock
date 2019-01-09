@@ -7,6 +7,7 @@ Copyright 1995-2005 Keil Software, Inc.
 #include "SegScreen\\SegScreen.h"
 #include "ClockInterface.h"
 #include "Time.h"
+#include "DateInterface.h"
 #include "Input.h"
 #include <REG51.H>                /* special function register declarations   */
 #include <absacc.h>
@@ -15,13 +16,14 @@ Copyright 1995-2005 Keil Software, Inc.
 #define uchar unsigned char	
 LOOPER looper;
 void updateTest(LOOPER *looper);
-int cnt = 0;
+char cnt = 0;
 void OnTimer1();
 void main (void) {
 	Looper_Init(&looper);
 	Looper_AddTask(&looper, Input_LooperUpdate);
 	//Looper_AddTask(&looper, updateTest);
 	Looper_AddTask(&looper, ClockInterface_LooperUpdate);
+	//Looper_AddTask(&looper, DateInterface_LooperUpdate);
 	Looper_AddTask(&looper, SegScreen_LooperUpdate);
 	
 	TMOD=0x00;

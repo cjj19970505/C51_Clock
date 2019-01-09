@@ -3,6 +3,7 @@
 #include "Time.h"
 #include "Input.h"
 #include "SegScreen\\SegScreen.h"
+#include "Date.h"
 #define KEYCODE_SETTING INPUT_TOKEYCODE(1,1)
 #define KEYCODE_SETTING_SHIFT_ITEM INPUT_TOKEYCODE(1,2)
 #define KEYCODE_SETTING_SETTING_ADD INPUT_TOKEYCODE(1,3)
@@ -16,7 +17,7 @@
 #define SETTING_ITEM_MINUTE 1
 #define SETTING_ITEM_SECOND 2
 TIME clockInterface_Time;
-char clockInterface_View[10];
+char clockInterface_View[16];
 char clockInterface_Mode = 0;	//0:Run Setting
 char clockInterface_SettingItem = 0; //0:Hour 1:Minute 2:Second
 int clockInterface_SettingItem_Spark_Timer = 0;
