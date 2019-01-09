@@ -3,11 +3,12 @@
 struct Looper
 {
 	int inited;
-	int deltaTimeInMS;	//delta time in millsecond
+	int deltaTime;	//delta time in millsecond
 	unsigned int taskCount;
 	void (*(updateFunctions[LOOPER_MAX_LOAD]))(LOOPER *looper);
 };
 void Looper_Init(LOOPER *looper);
 void Looper_AddTask(LOOPER *looper, void (*updateFunc)(LOOPER*));
 void Looper_Update(LOOPER *looper, int deltaTimeInMS);
+
 //void Looper_AddTask(LOOPER *looper, void (*updateFunc)(LOOPER*));

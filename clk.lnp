@@ -1,0 +1,10 @@
+"led.obj",
+"Looper.obj",
+"SegScreen.obj",
+"Input.obj",
+"Time.obj",
+"ClockInterface.obj",
+"Date.obj",
+"Utility.obj" 
+TO "clk" 
+RAMSIZE(256) 

@@ -1,0 +1,1 @@
+void Int_To_Chars(int value, int decDigitCount, char *chars);

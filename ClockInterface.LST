@@ -1,0 +1,164 @@
+C51 COMPILER V9.59.0.0   CLOCKINTERFACE                                                    01/09/2019 16:53:21 PAGE 1   
+
+
+C51 COMPILER V9.59.0.0, COMPILATION OF MODULE CLOCKINTERFACE
+OBJECT MODULE PLACED IN ClockInterface.OBJ
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE ClockInterface.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND TABS(2)
+
+line level    source
+
+   1          #include "Looper\\Looper.h"
+   2          #include "ClockInterface.h"
+   3          #include "Time.h"
+   4          #include "Input.h"
+   5          #include "SegScreen\\SegScreen.h"
+   6          #define KEYCODE_SETTING INPUT_TOKEYCODE(1,1)
+   7          #define KEYCODE_SETTING_SHIFT_ITEM INPUT_TOKEYCODE(1,2)
+   8          #define KEYCODE_SETTING_SETTING_ADD INPUT_TOKEYCODE(1,3)
+   9          #define KEYCODE_SETTING_SETTING_SUB INPUT_TOKEYCODE(2,1)
+  10          #define MODE_SETTING 1
+  11          #define MODE_RUNNING 0
+  12          #define SPARKING_DURATION 300
+  13          #define SPARKING_STATE_SHOW 0
+  14          #define SPARKING_STATE_HIDE 1
+  15          #define SETTING_ITEM_HOUR 0
+  16          #define SETTING_ITEM_MINUTE 1
+  17          #define SETTING_ITEM_SECOND 2
+  18          TIME clockInterface_Time;
+  19          char clockInterface_View[10];
+  20          char clockInterface_Mode = 0; //0:Run Setting
+  21          char clockInterface_SettingItem = 0; //0:Hour 1:Minute 2:Second
+  22          int clockInterface_SettingItem_Spark_Timer = 0;
+  23          char clockInterface_SettingItem_SparkState = SPARKING_STATE_SHOW;
+  24          void ClockInterface_Init()
+  25          {
+  26   1        TIME_SET_HOUR(clockInterface_Time, 0);
+  27   1        TIME_SET_MINUTE(clockInterface_Time, 0);
+  28   1        TIME_SET_SECOND(clockInterface_Time, 0);
+  29   1      }
+  30          void ClockInterface_LooperUpdate(LOOPER *looper)
+  31          {
+  32   1        //clockInterface_Timer += looper->deltaTime;
+  33   1        Time_ToString(&clockInterface_Time, clockInterface_View);
+  34   1        if(clockInterface_Mode == MODE_RUNNING)
+  35   1        {
+  36   2          if(Input_GetKeyDown() == KEYCODE_SETTING)
+  37   2          {
+  38   3            clockInterface_Mode = MODE_SETTING;
+  39   3          }
+  40   2        }
+  41   1        else if(clockInterface_Mode == MODE_SETTING)
+  42   1        {
+  43   2          clockInterface_SettingItem_Spark_Timer += looper->deltaTime;
+  44   2          if(clockInterface_SettingItem_Spark_Timer >= SPARKING_DURATION/2)
+  45   2          {
+  46   3            clockInterface_SettingItem_SparkState = (clockInterface_SettingItem_SparkState == SPARKING_STATE_SHOW) 
+             -? SPARKING_STATE_HIDE : SPARKING_STATE_SHOW;
+  47   3            clockInterface_SettingItem_Spark_Timer = 0;
+  48   3            
+  49   3          }
+  50   2          if(Input_GetKeyDown() == KEYCODE_SETTING)
+  51   2          {
+  52   3            clockInterface_Mode = MODE_RUNNING;
+  53   3            clockInterface_SettingItem = 0;
+  54   3            clockInterface_SettingItem_Spark_Timer = 0;
+C51 COMPILER V9.59.0.0   CLOCKINTERFACE                                                    01/09/2019 16:53:21 PAGE 2   
+
+  55   3            clockInterface_SettingItem_SparkState = SPARKING_STATE_SHOW;
+  56   3          }
+  57   2          else if(Input_GetKeyDown() == KEYCODE_SETTING_SHIFT_ITEM)
+  58   2          {
+  59   3            clockInterface_SettingItem++;
+  60   3            clockInterface_SettingItem %= 3;
+  61   3          }
+  62   2          if(clockInterface_SettingItem == SETTING_ITEM_HOUR)
+  63   2          {
+  64   3            if(Input_GetKeyDown() == KEYCODE_SETTING_SETTING_ADD || Input_GetKeyDown() == KEYCODE_SETTING_SETTING_S
+             -UB)
+  65   3            {
+  66   4              if(Input_GetKeyDown() == KEYCODE_SETTING_SETTING_ADD)
+  67   4              {
+  68   5                TIME_SET_HOUR(clockInterface_Time, (TIME_GET_HOUR(clockInterface_Time) + 1)%24);
+  69   5              }
+  70   4              else
+  71   4              {
+  72   5                TIME_SET_HOUR(clockInterface_Time, TIME_GET_HOUR(clockInterface_Time) == 0 ? 23 : (TIME_GET_HOUR(cloc
+             -kInterface_Time) - 1));
+  73   5              }
+  74   4              clockInterface_SettingItem_SparkState = SPARKING_STATE_SHOW;
+  75   4              clockInterface_SettingItem_Spark_Timer = 0;
+  76   4              
+  77   4            }
+  78   3            if(clockInterface_SettingItem_SparkState == SPARKING_STATE_HIDE)
+  79   3            {
+  80   4              clockInterface_View[0] = ' ';
+  81   4              clockInterface_View[1] = ' ';
+  82   4            }
+  83   3          }
+  84   2          else if(clockInterface_SettingItem == SETTING_ITEM_MINUTE)
+  85   2          {
+  86   3            if(Input_GetKeyDown() == KEYCODE_SETTING_SETTING_ADD || Input_GetKeyDown() == KEYCODE_SETTING_SETTING_S
+             -UB)
+  87   3            {
+  88   4              clockInterface_SettingItem_SparkState = SPARKING_STATE_SHOW;
+  89   4              clockInterface_SettingItem_Spark_Timer = 0;
+  90   4              if(Input_GetKeyDown() == KEYCODE_SETTING_SETTING_ADD)
+  91   4              {
+  92   5                TIME_SET_MINUTE(clockInterface_Time, (TIME_GET_MINUTE(clockInterface_Time) + 1)%60);
+  93   5              }
+  94   4              else
+  95   4              {
+  96   5                TIME_SET_MINUTE(clockInterface_Time, TIME_GET_MINUTE(clockInterface_Time) == 0 ? 59 : TIME_GET_MINUTE
+             -(clockInterface_Time) - 1);
+  97   5              }
+  98   4              
+  99   4              
+ 100   4            }
+ 101   3            if(clockInterface_SettingItem_SparkState == SPARKING_STATE_HIDE)
+ 102   3            {
+ 103   4              clockInterface_View[3] = ' ';
+ 104   4              clockInterface_View[4] = ' ';
+ 105   4            }
+ 106   3          }
+ 107   2          else if(clockInterface_SettingItem == SETTING_ITEM_SECOND)
+ 108   2          {
+ 109   3            if(Input_GetKeyDown() == KEYCODE_SETTING_SETTING_ADD || Input_GetKeyDown() == KEYCODE_SETTING_SETTING_S
+             -UB)
+ 110   3            {
+ 111   4              clockInterface_SettingItem_SparkState = SPARKING_STATE_SHOW;
+C51 COMPILER V9.59.0.0   CLOCKINTERFACE                                                    01/09/2019 16:53:21 PAGE 3   
+
+ 112   4              clockInterface_SettingItem_Spark_Timer = 0;
+ 113   4              TIME_SET_SECOND(clockInterface_Time, 0);
+ 114   4            }
+ 115   3            if(clockInterface_SettingItem_SparkState == SPARKING_STATE_HIDE)
+ 116   3            {
+ 117   4              clockInterface_View[6] = ' ';
+ 118   4              clockInterface_View[7] = ' ';
+ 119   4            }
+ 120   3          }
+ 121   2          
+ 122   2        }
+ 123   1        SegScreen_Print_String(clockInterface_View);
+ 124   1      }
+ 125          
+ 126          void ClockInterface_OnDeciClockTrigger()
+ 127          {
+ 128   1        Time_Add_1_Decisecond(&clockInterface_Time);
+ 129   1      }
+ 130          
+ 131          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    532    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     19       3
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

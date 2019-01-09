@@ -1,0 +1,86 @@
+C51 COMPILER V9.59.0.0   LED                                                               01/09/2019 16:53:20 PAGE 1   
+
+
+C51 COMPILER V9.59.0.0, COMPILATION OF MODULE LED
+OBJECT MODULE PLACED IN led.OBJ
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE led.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND TABS(2)
+
+line level    source
+
+   1          /*------------------------------------------------------------------------------
+   2          HELLO.C
+   3          
+   4          Copyright 1995-2005 Keil Software, Inc.
+   5          ------------------------------------------------------------------------------*/
+   6          #include "Looper\\Looper.h"
+   7          #include "SegScreen\\SegScreen.h"
+   8          #include "ClockInterface.h"
+   9          #include "Time.h"
+  10          #include "Input.h"
+  11          #include <REG51.H>                /* special function register declarations   */
+  12          #include <absacc.h>
+  13          #include <stdio.h>
+  14                                       /* Stop Exection with Serial Intr.   */
+  15          #define uchar unsigned char 
+  16          LOOPER looper;
+  17          void updateTest(LOOPER *looper);
+  18          int cnt = 0;
+  19          void OnTimer1();
+  20          void main (void) {
+  21   1        Looper_Init(&looper);
+  22   1        Looper_AddTask(&looper, Input_LooperUpdate);
+  23   1        //Looper_AddTask(&looper, updateTest);
+  24   1        Looper_AddTask(&looper, ClockInterface_LooperUpdate);
+  25   1        Looper_AddTask(&looper, SegScreen_LooperUpdate);
+  26   1        
+  27   1        TMOD=0x00;
+  28   1        TH1= 0xEE;
+  29   1        TL1 = 0x00;
+  30   1        TR1=1;
+  31   1        EA=1;
+  32   1        ET1=1;
+  33   1        
+  34   1        ClockInterface_Init();
+  35   1        while(1)
+  36   1        {
+  37   2          Looper_Update(&looper, 1);
+  38   2          if(cnt >= 20)
+  39   2          {
+  40   3            cnt = 0;
+  41   3            OnTimer1();
+  42   3          }
+  43   2        }
+  44   1      }
+  45          
+  46          void timer1() interrupt 3
+  47          {
+  48   1        TH1= 0x3C;
+  49   1        TL1 = 0xB0;
+  50   1        cnt++;
+  51   1      }
+  52          
+  53          void OnTimer1()
+  54          {
+  55   1        ClockInterface_OnDeciClockTrigger();
+C51 COMPILER V9.59.0.0   LED                                                               01/09/2019 16:53:20 PAGE 2   
+
+  56   1      }
+  57          
+  58          
+  59          
+  60          
+  61          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    138    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     23    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

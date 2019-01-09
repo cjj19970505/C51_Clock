@@ -2,8 +2,9 @@
 #include <absacc.h>
 #include "Looper\\Looper.h"
 #include "Input.h"
-
+char input_PreviousKeycode = 0;
 char input_LatestKeycode = 0;
+char input_HasKeyDown = 0;
 unsigned char Input_Getkeycode(void)
 {
 	unsigned char line=0x00;
@@ -34,17 +35,30 @@ unsigned char Input_Getkeycode(void)
 void Input_LooperUpdate(LOOPER *looper)
 {
 	static int checkInputTimer = 0;
+	input_HasKeyDown = 0;
 	if(checkInputTimer >= INPUT_CHECKINPUT_INTERVAL_MS)
 	{
 		checkInputTimer = 0;
-		
 		XBYTE[0x9000] = 0x00;
-
+		input_PreviousKeycode = input_LatestKeycode;
 		input_LatestKeycode = Input_Getkeycode();
+		if(input_LatestKeycode != input_PreviousKeycode)
+		{
+			input_HasKeyDown = 1;
+		}
 	}
-	checkInputTimer += looper->deltaTimeInMS;
+	checkInputTimer += looper->deltaTime;
+	
 }
 char Input_GetLatestKeyCode()
 {
 	return input_LatestKeycode;
+}
+char Input_GetKeyDown()
+{
+	if(input_HasKeyDown)
+	{
+		return input_LatestKeycode;
+	}
+	return 0;
 }

@@ -421,6 +421,41 @@
               <FileType>1</FileType>
               <FilePath>.\Time.c</FilePath>
             </File>
+            <File>
+              <FileName>BinHelper.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\BinHelper.h</FilePath>
+            </File>
+            <File>
+              <FileName>ClockInterface.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ClockInterface.c</FilePath>
+            </File>
+            <File>
+              <FileName>ClockInterface.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\ClockInterface.h</FilePath>
+            </File>
+            <File>
+              <FileName>Date.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Date.h</FilePath>
+            </File>
+            <File>
+              <FileName>Date.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Date.c</FilePath>
+            </File>
+            <File>
+              <FileName>Utility.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Utility.c</FilePath>
+            </File>
+            <File>
+              <FileName>Utility.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Utility.h</FilePath>
+            </File>
           </Files>
         </Group>
       </Groups>

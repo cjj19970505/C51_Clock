@@ -1,0 +1,89 @@
+C51 COMPILER V9.59.0.0   INPUT                                                             01/09/2019 16:53:21 PAGE 1   
+
+
+C51 COMPILER V9.59.0.0, COMPILATION OF MODULE INPUT
+OBJECT MODULE PLACED IN Input.OBJ
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE Input.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND TABS(2)
+
+line level    source
+
+   1          #include <REG51.H>
+   2          #include <absacc.h>
+   3          #include "Looper\\Looper.h"
+   4          #include "Input.h"
+   5          char input_PreviousKeycode = 0;
+   6          char input_LatestKeycode = 0;
+   7          char input_HasKeyDown = 0;
+   8          unsigned char Input_Getkeycode(void)
+   9          {
+  10   1        unsigned char line=0x00;
+  11   1        unsigned char col=0x00;
+  12   1        unsigned char scancode=0x01;
+  13   1        unsigned char keycode;
+  14   1      
+  15   1        XBYTE[0x8000]=0xff;
+  16   1        col=XBYTE[0x8000]&0x0f;
+  17   1        if (col==0x00)
+  18   1          keycode=0x00;
+  19   1        else
+  20   1        {
+  21   2          while((scancode&0x0f)!=0)
+  22   2          {
+  23   3            line=scancode;
+  24   3            XBYTE[0x8000]=scancode;
+  25   3            if((XBYTE[0x8000]&0x0f)==col)
+  26   3            break; 
+  27   3            scancode=scancode<<1;
+  28   3          }
+  29   2          col=col<<4;
+  30   2          keycode=col|line;
+  31   2        }
+  32   1        return keycode;
+  33   1      }
+  34          
+  35          void Input_LooperUpdate(LOOPER *looper)
+  36          {
+  37   1        static int checkInputTimer = 0;
+  38   1        input_HasKeyDown = 0;
+  39   1        if(checkInputTimer >= INPUT_CHECKINPUT_INTERVAL_MS)
+  40   1        {
+  41   2          checkInputTimer = 0;
+  42   2          XBYTE[0x9000] = 0x00;
+  43   2          input_PreviousKeycode = input_LatestKeycode;
+  44   2          input_LatestKeycode = Input_Getkeycode();
+  45   2          if(input_LatestKeycode != input_PreviousKeycode)
+  46   2          {
+  47   3            input_HasKeyDown = 1;
+  48   3          }
+  49   2        }
+  50   1        checkInputTimer += looper->deltaTime;
+  51   1        
+  52   1      }
+  53          char Input_GetLatestKeyCode()
+  54          {
+  55   1        return input_LatestKeycode;
+C51 COMPILER V9.59.0.0   INPUT                                                             01/09/2019 16:53:21 PAGE 2   
+
+  56   1      }
+  57          char Input_GetKeyDown()
+  58          {
+  59   1        if(input_HasKeyDown)
+  60   1        {
+  61   2          return input_LatestKeycode;
+  62   2        }
+  63   1        return 0;
+  64   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    122    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      5    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

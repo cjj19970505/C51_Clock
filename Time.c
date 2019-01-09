@@ -1,4 +1,6 @@
 #include "Time.h"
+#include "BinHelper.h"
+#include "Utility.h"
 int time_temp_i;
 void Int_To_Chars(int value, int decDigitCount, char *chars);
 void Time_ToString(TIME *time, char *str)
@@ -11,16 +13,23 @@ void Time_ToString(TIME *time, char *str)
 	str[8] = '\0';
 }
 
-void Int_To_Chars(int value, int decDigitCount, char *chars)
+void Time_Add_1_Decisecond(TIME *time)
 {
-	int i = decDigitCount - 1;
-	int left = value;
-	int curr;
-	while(i >= 0)
+	TIME_SET_DECISECOND(*time ,TIME_GET_DECISECOND(*time)+1);
+	if(TIME_GET_DECISECOND(*time) >= 10)
 	{
-		curr = left % 10;
-		left = left / 10;
-		chars[i] = curr + '0';
-		i--;
+		TIME_SET_DECISECOND(*time, 0);
+		TIME_SET_SECOND(*time, TIME_GET_SECOND(*time)+1);
+	}
+	if(TIME_GET_SECOND(*time) >= 60)
+	{
+		TIME_SET_SECOND(*time, 0);
+		TIME_SET_MINUTE(*time, TIME_GET_MINUTE(*time)+1);
+	}
+	if(TIME_GET_MINUTE(*time) >= 60)
+	{
+		TIME_SET_MINUTE(*time, 0);
+		TIME_SET_HOUR(*time, TIME_GET_HOUR(*time)+1);
 	}
 }
+

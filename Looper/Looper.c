@@ -11,9 +11,9 @@ void Looper_AddTask(LOOPER *looper, void (*updateFunc)(LOOPER*))
 	looper->updateFunctions[looper->taskCount] = updateFunc;
 	looper->taskCount++;
 }
-void Looper_Update(LOOPER *looper, int deltaTimeInMS)
+void Looper_Update(LOOPER *looper, int deltaTime)
 {
-	looper->deltaTimeInMS = deltaTimeInMS;
+	looper->deltaTime = deltaTime;
 	for(looper_temp_i = 0; looper_temp_i < looper->taskCount; looper_temp_i++)
 	{
 		looper->updateFunctions[looper_temp_i](looper);
