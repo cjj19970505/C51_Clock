@@ -12,7 +12,6 @@ int segScreen_temp_i;
 
 void SegScreen_LooperUpdate(LOOPER *looper)
 {
-	
 	segScreen_shiftTimer += looper->deltaTime;
 	XBYTE[0x9000]= segScreen_led[SegScreen_ShiftMaskToIndex(segScreen_CurrShiftMask)];
 	XBYTE[0x8000]= segScreen_CurrShiftMask;

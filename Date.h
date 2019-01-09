@@ -5,7 +5,6 @@
 #define DATE_GET_YEAR(date) ((date).year + 2000)
 #define DATE_GET_MONTH(date) ((date).month)
 #define DATE_GET_DAY(date) ((date).day)
-void Date_ToString(DATE *date, char *str);
 struct Date
 {
 	char year;

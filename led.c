@@ -6,6 +6,7 @@ Copyright 1995-2005 Keil Software, Inc.
 #include "Looper\\Looper.h"
 #include "SegScreen\\SegScreen.h"
 #include "ClockInterface.h"
+#include "TaskSelector.h"
 #include "Time.h"
 #include "DateInterface.h"
 #include "Input.h"
@@ -22,8 +23,9 @@ void main (void) {
 	Looper_Init(&looper);
 	Looper_AddTask(&looper, Input_LooperUpdate);
 	//Looper_AddTask(&looper, updateTest);
+	Looper_AddTask(&looper, TaskSelector_LooperUpdate);
 	Looper_AddTask(&looper, ClockInterface_LooperUpdate);
-	//Looper_AddTask(&looper, DateInterface_LooperUpdate);
+	Looper_AddTask(&looper, DateInterface_LooperUpdate);
 	Looper_AddTask(&looper, SegScreen_LooperUpdate);
 	
 	TMOD=0x00;

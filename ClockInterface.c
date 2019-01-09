@@ -10,12 +10,14 @@
 #define KEYCODE_SETTING_SETTING_SUB INPUT_TOKEYCODE(2,1)
 #define MODE_SETTING 1
 #define MODE_RUNNING 0
+#define MODE_EXIT (-1)
 #define SPARKING_DURATION 300
 #define SPARKING_STATE_SHOW 0
 #define SPARKING_STATE_HIDE 1
 #define SETTING_ITEM_HOUR 0
 #define SETTING_ITEM_MINUTE 1
 #define SETTING_ITEM_SECOND 2
+
 TIME clockInterface_Time;
 char clockInterface_View[16];
 char clockInterface_Mode = 0;	//0:Run Setting
@@ -31,7 +33,10 @@ void ClockInterface_Init()
 void ClockInterface_LooperUpdate(LOOPER *looper)
 {
 	//clockInterface_Timer += looper->deltaTime;
-	Time_ToString(&clockInterface_Time, clockInterface_View);
+	if(clockInterface_Mode != MODE_EXIT)
+	{
+		Time_ToString(&clockInterface_Time, clockInterface_View);
+	}
 	if(clockInterface_Mode == MODE_RUNNING)
 	{
 		if(Input_GetKeyDown() == KEYCODE_SETTING)
@@ -121,12 +126,27 @@ void ClockInterface_LooperUpdate(LOOPER *looper)
 		}
 		
 	}
-	SegScreen_Print_String(clockInterface_View);
+	if(clockInterface_Mode != MODE_EXIT)
+	{
+		SegScreen_Print_String(clockInterface_View);
+	}
+	
 }
 
 void ClockInterface_OnDeciClockTrigger()
 {
 	Time_Add_1_Decisecond(&clockInterface_Time);
+}
+void ClockInterface_EnterTask()
+{
+	clockInterface_Mode = MODE_RUNNING;
+}
+void ClockInterface_ExitTask()
+{
+	clockInterface_Mode = MODE_EXIT;
+	clockInterface_SettingItem = 0;
+	clockInterface_SettingItem_Spark_Timer = 0;
+	clockInterface_SettingItem_SparkState = SPARKING_STATE_SHOW;
 }
 
 

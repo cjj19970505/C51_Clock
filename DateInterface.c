@@ -6,14 +6,22 @@
 #define DATEINTERFACE_LOOP_ZERONUM 8
 #define DATEINTERFACE_STRING_LENGTH 10
 #define DATEINTERFACE_LOOP_INTERVAL 50
+#define MODE_RUNNING 0
+#define MODE_EXIT -1
 char dateInterface_View[8+5];
 DATE dateInterface_Date;
 char dateInterface_LoopIndex = 5;
-int dateInterface_temp_i;
+unsigned char dateInterface_temp_i;
 char dateInterface_LoopTimer = 0;
+char dateInterface_Mode = MODE_EXIT;
 void DateInterface_LooperUpdate(LOOPER *looper)
 {
 	char loopIndex = 0;
+	if(dateInterface_Mode == MODE_EXIT)
+	{
+		return;
+	}
+	
 	
 	DATE_SET_YEAR(dateInterface_Date, 2019);
 	DATE_SET_MONTH(dateInterface_Date, 9);
@@ -71,4 +79,14 @@ void DateInterface_LooperUpdate(LOOPER *looper)
 	dateInterface_LoopTimer += looper->deltaTime;
 	
 	
+}
+
+void DateInterface_EnterTask()
+{
+	dateInterface_Mode = MODE_RUNNING;
+}
+
+void DateInterface_ExitTask()
+{
+	dateInterface_Mode = MODE_EXIT;
 }
