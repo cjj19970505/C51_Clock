@@ -12,7 +12,7 @@ int segScreen_temp_i;
 
 void SegScreen_LooperUpdate(LOOPER *looper)
 {
-	segScreen_shiftTimer += looper->deltaTimeInMS;
+	segScreen_shiftTimer += looper->deltaTime;
 	XBYTE[0x9000]= segScreen_led[SegScreen_ShiftMaskToIndex(segScreen_CurrShiftMask)];
 	XBYTE[0x8000]= segScreen_CurrShiftMask;
 	if(segScreen_shiftTimer >= SEGSCREEN_SHIFT_INTERVAL_MS)
@@ -81,7 +81,15 @@ void SegScreen_Print_String(char *str)
 		}
 		else
 		{
-			segScreen_led[segIndex] = segScreen_led_table[str[segScreen_temp_i] - '0'];
+			if(str[segScreen_temp_i] == ' ')
+			{
+				segScreen_led[segIndex] = 0;
+			}
+			else
+			{
+				segScreen_led[segIndex] = segScreen_led_table[str[segScreen_temp_i] - '0'];
+			}
+			
 			segIndex--;
 		}
 	}
