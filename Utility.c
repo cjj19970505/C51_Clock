@@ -1,6 +1,6 @@
 void Int_To_Chars(int value, int decDigitCount, char *chars)
 {
-	int i = decDigitCount - 1;
+	char i = decDigitCount - 1;
 	int left = value;
 	int curr;
 	while(i >= 0)

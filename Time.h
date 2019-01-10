@@ -17,5 +17,5 @@ struct Time
 	char hour;
 };
 
-void Time_ToString(TIME *time, char *str);
+void Time_ToString(TIME *time, char hyphen, char hasDeciSecond, char *str);
 void Time_Add_1_Decisecond(TIME *time);

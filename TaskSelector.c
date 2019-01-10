@@ -1,12 +1,13 @@
 #include "Looper\\Looper.h"
 #include "DateInterface.h"
 #include "ClockInterface.h"
+#include "StopwatchTask.h"
 #include "Input.h"
-#define TASKSELECTOR_MODE_CLOCK 0
-#define TASKSELECTOR_MODE_DATE 1
+#include "TaskSelector.h"
+
 #define TASKSELECTOR_KEYCODE INPUT_TOKEYCODE(4, 1)
 
-char taskSelector_Mode = 0;
+char taskSelector_Mode = TASKSELECTOR_MODE_CLOCK;
 void TaskSelector_LooperUpdate(LOOPER *looper)
 {
 	if(Input_GetKeyDown() == TASKSELECTOR_KEYCODE)
@@ -20,6 +21,12 @@ void TaskSelector_LooperUpdate(LOOPER *looper)
 		else if(taskSelector_Mode == TASKSELECTOR_MODE_DATE)
 		{
 			DateInterface_ExitTask();
+			StopwatchTask_EnterTask();
+			taskSelector_Mode = TASKSELECTOR_MODE_STOPWATCH;
+		}
+		else if(taskSelector_Mode == TASKSELECTOR_MODE_STOPWATCH)
+		{
+			StopwatchTask_ExitTask();
 			ClockInterface_EnterTask();
 			taskSelector_Mode = TASKSELECTOR_MODE_CLOCK;
 		}

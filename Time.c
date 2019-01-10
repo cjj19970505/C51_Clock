@@ -4,14 +4,23 @@
 int time_temp_i;
 void Int_To_Chars(int value, int decDigitCount, char *chars);
 
-void Time_ToString(TIME *time, char *str)
+void Time_ToString(TIME *time, char hyphen, char hasDeciSecond, char *str)
 {
 	Int_To_Chars(TIME_GET_HOUR(*time), 2, str);
-	str[2] = '.';
+	str[2] = hyphen;
 	Int_To_Chars(TIME_GET_MINUTE(*time), 2, &(str[3]));
-	str[5] = '.';
+	str[5] = hyphen;
 	Int_To_Chars(TIME_GET_SECOND(*time), 2, &(str[6]));
-	str[8] = '\0';
+	if(hasDeciSecond)
+	{
+		str[8] = hyphen;
+		Int_To_Chars(TIME_GET_DECISECOND(*time), 2, &(str[9]));
+		str[11] = '\0';
+	}
+	else
+	{
+		str[8] = '\0';
+	}
 }
 
 void Time_Add_1_Decisecond(TIME *time)

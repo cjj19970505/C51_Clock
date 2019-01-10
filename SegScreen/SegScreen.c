@@ -2,6 +2,7 @@
 #include <REG51.H>
 #include <absacc.h>
 #include "SegScreen.h"
+
 //From Right To Left--0 to 7
 int segScreen_CurrShiftMask = 0x01;
 int segScreen_shiftTimer = 0;
@@ -9,7 +10,6 @@ unsigned char code segScreen_led_table[]={0x3f,0x06,0x5b,0x4f,0x66,0x6d,0x7d,0x0
 unsigned char segScreen_led[8] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
 char SegScreen_ShiftMaskToIndex(char segMask);
 int segScreen_temp_i;
-
 void SegScreen_LooperUpdate(LOOPER *looper)
 {
 	segScreen_shiftTimer += looper->deltaTime;

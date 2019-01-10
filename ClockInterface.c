@@ -5,13 +5,14 @@
 #include "SegScreen\\SegScreen.h"
 #include "Date.h"
 #include "TaskUtility.h"
+#include "TaskSelector.h"
 #define KEYCODE_SETTING INPUT_TOKEYCODE(1,1)
 #define KEYCODE_SETTING_SHIFT_ITEM INPUT_TOKEYCODE(1,2)
 #define KEYCODE_SETTING_SETTING_ADD INPUT_TOKEYCODE(1,3)
-#define KEYCODE_SETTING_SETTING_SUB INPUT_TOKEYCODE(2,1)
+#define KEYCODE_SETTING_SETTING_SUB INPUT_TOKEYCODE(2,3)
 #define MODE_SETTING 1
 #define MODE_RUNNING 0
-#define MODE_EXIT (-1)
+#define MODE_EXIT 2
 #define SPARKING_DURATION 300
 #define SPARKING_STATE_SHOW 0
 #define SPARKING_STATE_HIDE 1
@@ -36,9 +37,9 @@ void ClockInterface_Init()
 void ClockInterface_LooperUpdate(LOOPER *looper)
 {
 	
-	if(clockInterface_Mode != MODE_EXIT)
+	if(TASKSELECTOR_CURRENT_MODE == TASKSELECTOR_MODE_CLOCK)
 	{
-		Time_ToString(&clockInterface_Time, SEG_VIEW_ARRAY);
+		Time_ToString(&clockInterface_Time, '.', 0, SEG_VIEW_ARRAY);
 	}
 	if(clockInterface_Mode == MODE_RUNNING)
 	{
@@ -120,6 +121,7 @@ void ClockInterface_LooperUpdate(LOOPER *looper)
 				SETTING_ITEM_SPARKSTATE = SPARKING_STATE_SHOW;
 				SETTING_ITEM_SPARK_TIMER = 0;
 				TIME_SET_SECOND(clockInterface_Time, 0);
+				TIME_SET_DECISECOND(clockInterface_Time, 0);
 			}
 			if(SETTING_ITEM_SPARKSTATE == SPARKING_STATE_HIDE)
 			{
@@ -129,7 +131,7 @@ void ClockInterface_LooperUpdate(LOOPER *looper)
 		}
 		
 	}
-	if(clockInterface_Mode != MODE_EXIT)
+	if(TASKSELECTOR_CURRENT_MODE == TASKSELECTOR_MODE_CLOCK)
 	{
 		SegScreen_Print_String(SEG_VIEW_ARRAY);
 	}

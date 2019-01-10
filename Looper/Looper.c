@@ -1,23 +1,30 @@
 #include "Looper.h"
-
+#include "..\\SegScreen\\SegScreen.h"
+#include "..\\ClockInterface.h"
+#include "..\\TaskSelector.h"
+#include "..\\Time.h"
+#include "..\\DateInterface.h"
+#include "..\\StopwatchTask.h"
+#include "..\\TestTask.h"
+#include "..\\Input.h"
 char looper_temp_i;
 void Looper_Init(LOOPER *looper)
 {
 	looper->inited = 1;
-	looper->taskCount = 0;
-}
-void Looper_AddTask(LOOPER *looper, void (*updateFunc)(LOOPER*))
-{
-	looper->updateFunctions[looper->taskCount] = updateFunc;
-	looper->taskCount++;
+	
+	ClockInterface_Init();
+	DateInterface_Init();
+	StopwatchTask_Init();
 }
 void Looper_Update(LOOPER *looper, int deltaTime)
 {
 	looper->deltaTime = deltaTime;
 	
-	for(looper_temp_i = 0; looper_temp_i < looper->taskCount; looper_temp_i++)
-	{
-		looper->updateFunctions[looper_temp_i](looper);
-	}
-	
+	Input_LooperUpdate(looper);
+	TaskSelector_LooperUpdate(looper);
+	ClockInterface_LooperUpdate(looper);
+	DateInterface_LooperUpdate(looper);
+	StopwatchTask_LooperUpdate(looper);
+	TestTask_LooperUpdate(looper);
+	SegScreen_LooperUpdate(looper);
 }

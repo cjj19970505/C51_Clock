@@ -496,6 +496,16 @@
               <FileType>1</FileType>
               <FilePath>.\TestTask.c</FilePath>
             </File>
+            <File>
+              <FileName>StopwatchTask.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\StopwatchTask.h</FilePath>
+            </File>
+            <File>
+              <FileName>StopwatchTask.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\StopwatchTask.c</FilePath>
+            </File>
           </Files>
         </Group>
       </Groups>
