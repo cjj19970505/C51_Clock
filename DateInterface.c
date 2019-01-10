@@ -10,12 +10,11 @@
 #define MODE_RUNNING 0
 #define MODE_EXIT -1
 
-char dateInterface_View[8+5];
 DATE dateInterface_Date;
 
 #define VIEW_LOOP_INDEX TaskUtility_Public_Var_uChar1
 #define VIEW_LOOP_TIMER TaskUtility_Public_Var_uChar2
-
+#define SEG_VIEW_ARRAY TaskUtility_Public_Var_SegViewArr
 unsigned char dateInterface_temp_i;
 char dateInterface_Mode = MODE_EXIT;
 void DateInterface_LooperUpdate(LOOPER *looper)
@@ -34,36 +33,36 @@ void DateInterface_LooperUpdate(LOOPER *looper)
 		loopIndex = (dateInterface_temp_i + VIEW_LOOP_INDEX) % (DATEINTERFACE_STRING_LENGTH + DATEINTERFACE_LOOP_ZERONUM);
 		if((dateInterface_temp_i + VIEW_LOOP_INDEX) % (DATEINTERFACE_STRING_LENGTH + DATEINTERFACE_LOOP_ZERONUM) >= DATEINTERFACE_STRING_LENGTH)
 		{
-			dateInterface_View[dateInterface_temp_i] = ' ';
+			SEG_VIEW_ARRAY[dateInterface_temp_i] = ' ';
 		}
 		else
 		{
 			if(loopIndex == 0)
 			{
-				Int_To_Chars(DATE_GET_YEAR(dateInterface_Date), 4, &(dateInterface_View[dateInterface_temp_i]));
+				Int_To_Chars(DATE_GET_YEAR(dateInterface_Date), 4, &(SEG_VIEW_ARRAY[dateInterface_temp_i]));
 			}
 			else if(loopIndex == 4)
 			{
-				dateInterface_View[dateInterface_temp_i] = '-';
+				SEG_VIEW_ARRAY[dateInterface_temp_i] = '-';
 			}
 			else if(loopIndex == 5)
 			{
-				Int_To_Chars(DATE_GET_MONTH(dateInterface_Date), 2, &(dateInterface_View[dateInterface_temp_i]));
+				Int_To_Chars(DATE_GET_MONTH(dateInterface_Date), 2, &(SEG_VIEW_ARRAY[dateInterface_temp_i]));
 			}
 			else if(loopIndex == 7)
 			{
-				dateInterface_View[dateInterface_temp_i] = '-';
+				SEG_VIEW_ARRAY[dateInterface_temp_i] = '-';
 			}
 			else if(loopIndex == 8)
 			{
-				Int_To_Chars(DATE_GET_DAY(dateInterface_Date), 2, &(dateInterface_View[dateInterface_temp_i]));
+				Int_To_Chars(DATE_GET_DAY(dateInterface_Date), 2, &(SEG_VIEW_ARRAY[dateInterface_temp_i]));
 			}
 		}
 	}
 	
-	dateInterface_View[8] = '\0';
-	//dateInterface_View[0] = loopIndex + '0';
-	SegScreen_Print_String(dateInterface_View);
+	SEG_VIEW_ARRAY[8] = '\0';
+	//SEG_VIEW_ARRAY[0] = loopIndex + '0';
+	SegScreen_Print_String(SEG_VIEW_ARRAY);
 	//for(dateInterface_temp_i = 0)
 	/*
 	Int_To_Chars(DATE_GET_YEAR(*date), 4, str);

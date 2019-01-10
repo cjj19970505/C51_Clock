@@ -18,13 +18,12 @@
 #define SETTING_ITEM_HOUR 0
 #define SETTING_ITEM_MINUTE 1
 #define SETTING_ITEM_SECOND 2
-
 TIME clockInterface_Time;
-char clockInterface_View[16];
 char clockInterface_Mode = 0;	//0:Run Setting
 #define SETTING_ITEM TaskUtility_Public_Var_uChar1
 #define SETTING_ITEM_SPARK_TIMER TaskUtility_Public_Var_uChar2
 #define SETTING_ITEM_SPARKSTATE TaskUtility_Public_Var_uChar3
+#define SEG_VIEW_ARRAY TaskUtility_Public_Var_SegViewArr
 //char clockInterface_SettingItem = 0; //0:Hour 1:Minute 2:Second
 //int SETTING_ITEM_SPARK_TIMER = 0;
 //char SETTING_ITEM_SPARKSTATE = SPARKING_STATE_SHOW;
@@ -39,7 +38,7 @@ void ClockInterface_LooperUpdate(LOOPER *looper)
 	
 	if(clockInterface_Mode != MODE_EXIT)
 	{
-		Time_ToString(&clockInterface_Time, clockInterface_View);
+		Time_ToString(&clockInterface_Time, SEG_VIEW_ARRAY);
 	}
 	if(clockInterface_Mode == MODE_RUNNING)
 	{
@@ -87,8 +86,8 @@ void ClockInterface_LooperUpdate(LOOPER *looper)
 			}
 			if(SETTING_ITEM_SPARKSTATE == SPARKING_STATE_HIDE)
 			{
-				clockInterface_View[0] = ' ';
-				clockInterface_View[1] = ' ';
+				SEG_VIEW_ARRAY[0] = ' ';
+				SEG_VIEW_ARRAY[1] = ' ';
 			}
 		}
 		else if(SETTING_ITEM == SETTING_ITEM_MINUTE)
@@ -110,8 +109,8 @@ void ClockInterface_LooperUpdate(LOOPER *looper)
 			}
 			if(SETTING_ITEM_SPARKSTATE == SPARKING_STATE_HIDE)
 			{
-				clockInterface_View[3] = ' ';
-				clockInterface_View[4] = ' ';
+				SEG_VIEW_ARRAY[3] = ' ';
+				SEG_VIEW_ARRAY[4] = ' ';
 			}
 		}
 		else if(SETTING_ITEM == SETTING_ITEM_SECOND)
@@ -124,15 +123,15 @@ void ClockInterface_LooperUpdate(LOOPER *looper)
 			}
 			if(SETTING_ITEM_SPARKSTATE == SPARKING_STATE_HIDE)
 			{
-				clockInterface_View[6] = ' ';
-				clockInterface_View[7] = ' ';
+				SEG_VIEW_ARRAY[6] = ' ';
+				SEG_VIEW_ARRAY[7] = ' ';
 			}
 		}
 		
 	}
 	if(clockInterface_Mode != MODE_EXIT)
 	{
-		SegScreen_Print_String(clockInterface_View);
+		SegScreen_Print_String(SEG_VIEW_ARRAY);
 	}
 	
 }
