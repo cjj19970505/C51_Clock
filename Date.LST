@@ -1,0 +1,38 @@
+C51 COMPILER V9.59.0.0   DATE                                                              01/10/2019 23:20:40 PAGE 1   
+
+
+C51 COMPILER V9.59.0.0, COMPILATION OF MODULE DATE
+OBJECT MODULE PLACED IN Date.OBJ
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE Date.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND TABS(2)
+
+line level    source
+
+   1          #include "Date.h"
+   2          #include "Utility.h"
+   3          
+   4          /*
+   5          void Date_ToString(DATE *date, char *str)
+   6          {
+   7            Int_To_Chars(DATE_GET_YEAR(*date), 4, str);
+   8            str[4] = '.';
+   9            Int_To_Chars(DATE_GET_MONTH(*date), 2, &(str[5]));
+  10            str[7] = '.';
+  11            Int_To_Chars(DATE_GET_DAY(*date), 2, &(str[8]));
+  12            str[10] = '\0';
+  13          }
+  14          */
+  15          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =   ----    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

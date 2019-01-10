@@ -506,6 +506,26 @@
               <FileType>1</FileType>
               <FilePath>.\StopwatchTask.c</FilePath>
             </File>
+            <File>
+              <FileName>AlarmTask.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\AlarmTask.c</FilePath>
+            </File>
+            <File>
+              <FileName>AlarmTask.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\AlarmTask.h</FilePath>
+            </File>
+            <File>
+              <FileName>RingtoneManager.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\RingtoneManager.h</FilePath>
+            </File>
+            <File>
+              <FileName>RingtoneManager.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\RingtoneManager.c</FilePath>
+            </File>
           </Files>
         </Group>
       </Groups>

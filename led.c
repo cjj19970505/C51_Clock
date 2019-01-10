@@ -24,7 +24,6 @@ void OnTimer1();
 
 void main (void) {
 	Looper_Init(&looper);
-	
 	TMOD=0x00;
 	TH1= 0x4C;
 	TL1 = 0x00;

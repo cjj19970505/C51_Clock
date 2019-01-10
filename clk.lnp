@@ -1,0 +1,16 @@
+"led.obj",
+"Looper.obj",
+"SegScreen.obj",
+"Input.obj",
+"Time.obj",
+"ClockInterface.obj",
+"Date.obj",
+"Utility.obj",
+"DateInterface.obj",
+"TaskSelector.obj",
+"TaskUtility.obj",
+"TestTask.obj",
+"StopwatchTask.obj",
+"AlarmTask.obj" 
+TO "clk" 
+RAMSIZE(256) 

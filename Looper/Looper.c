@@ -7,6 +7,7 @@
 #include "..\\StopwatchTask.h"
 #include "..\\TestTask.h"
 #include "..\\Input.h"
+#include "..\\AlarmTask.h"
 char looper_temp_i;
 void Looper_Init(LOOPER *looper)
 {
@@ -15,16 +16,19 @@ void Looper_Init(LOOPER *looper)
 	ClockInterface_Init();
 	DateInterface_Init();
 	StopwatchTask_Init();
+	AlarmTask_Init();
+	
 }
 void Looper_Update(LOOPER *looper, int deltaTime)
 {
 	looper->deltaTime = deltaTime;
 	
 	Input_LooperUpdate(looper);
-	TaskSelector_LooperUpdate(looper);
+	TaskSelector_LooperUpdate();
 	ClockInterface_LooperUpdate(looper);
 	DateInterface_LooperUpdate(looper);
 	StopwatchTask_LooperUpdate(looper);
+	AlarmTask_LooperUpdate(looper);
 	TestTask_LooperUpdate(looper);
 	SegScreen_LooperUpdate(looper);
 }
