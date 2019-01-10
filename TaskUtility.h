@@ -1,0 +1,3 @@
+extern unsigned char TaskUtility_Public_Var_uChar1;
+extern unsigned char TaskUtility_Public_Var_uChar2;
+extern unsigned char TaskUtility_Public_Var_uChar3;

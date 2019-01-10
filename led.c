@@ -9,6 +9,7 @@ Copyright 1995-2005 Keil Software, Inc.
 #include "TaskSelector.h"
 #include "Time.h"
 #include "DateInterface.h"
+#include "TestTask.h"
 #include "Input.h"
 #include <REG51.H>                /* special function register declarations   */
 #include <absacc.h>
@@ -19,6 +20,7 @@ LOOPER looper;
 void updateTest(LOOPER *looper);
 char cnt = 0;
 void OnTimer1();
+
 void main (void) {
 	Looper_Init(&looper);
 	Looper_AddTask(&looper, Input_LooperUpdate);
@@ -26,15 +28,14 @@ void main (void) {
 	Looper_AddTask(&looper, TaskSelector_LooperUpdate);
 	Looper_AddTask(&looper, ClockInterface_LooperUpdate);
 	Looper_AddTask(&looper, DateInterface_LooperUpdate);
+	Looper_AddTask(&looper, TestTask_LooperUpdate);
 	Looper_AddTask(&looper, SegScreen_LooperUpdate);
-	
 	TMOD=0x00;
-	TH1= 0xEE;
+	TH1= 0x4C;
 	TL1 = 0x00;
 	TR1=1;
 	EA=1;
 	ET1=1;
-	
 	ClockInterface_Init();
 	while(1)
 	{
@@ -47,10 +48,11 @@ void main (void) {
 	}
 }
 
+
 void timer1() interrupt 3
 {
-	TH1= 0x3C;
-	TL1 = 0xB0;
+	TH1= 0x4C;
+	TL1 = 0x00;
 	cnt++;
 }
 

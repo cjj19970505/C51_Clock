@@ -7,7 +7,7 @@ int segScreen_CurrShiftMask = 0x01;
 int segScreen_shiftTimer = 0;
 unsigned char code segScreen_led_table[]={0x3f,0x06,0x5b,0x4f,0x66,0x6d,0x7d,0x07,0x7f,0x6f,0x00,0x08,0x40,0x79	};
 unsigned char segScreen_led[8] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
-int SegScreen_ShiftMaskToIndex(int segMask);
+char SegScreen_ShiftMaskToIndex(char segMask);
 int segScreen_temp_i;
 
 void SegScreen_LooperUpdate(LOOPER *looper)
@@ -101,7 +101,7 @@ void SegScreen_Print_String(char *str)
 		}
 	}
 }
-int SegScreen_ShiftMaskToIndex(int segMask){
+char SegScreen_ShiftMaskToIndex(char segMask){
 	for(segScreen_temp_i = 0; segScreen_temp_i < 8; segScreen_temp_i++)
 	{
 		if((segMask & (1 << segScreen_temp_i)) != 0)

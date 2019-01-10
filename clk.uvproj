@@ -476,6 +476,26 @@
               <FileType>1</FileType>
               <FilePath>.\TaskSelector.c</FilePath>
             </File>
+            <File>
+              <FileName>TaskUtility.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\TaskUtility.h</FilePath>
+            </File>
+            <File>
+              <FileName>TaskUtility.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\TaskUtility.c</FilePath>
+            </File>
+            <File>
+              <FileName>TestTask.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\TestTask.h</FilePath>
+            </File>
+            <File>
+              <FileName>TestTask.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\TestTask.c</FilePath>
+            </File>
           </Files>
         </Group>
       </Groups>

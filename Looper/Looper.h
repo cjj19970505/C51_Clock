@@ -1,5 +1,5 @@
 #define LOOPER struct Looper
-#define LOOPER_MAX_LOAD 5	//ADDRESS SPACE OVERFLOW when it gets to 10, maybe a linklist is needed
+#define LOOPER_MAX_LOAD 6	//ADDRESS SPACE OVERFLOW when it gets to 10, maybe a linklist is needed
 struct Looper
 {
 	int inited;

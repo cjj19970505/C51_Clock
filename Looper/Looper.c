@@ -1,6 +1,6 @@
 #include "Looper.h"
 
-int looper_temp_i;
+char looper_temp_i;
 void Looper_Init(LOOPER *looper)
 {
 	looper->inited = 1;
