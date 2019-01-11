@@ -53,7 +53,11 @@ void AlarmTask_LooperUpdate(LOOPER *looper)
 		{
 			alarmTask_Mode = MODE_SETTING;
 		}
-		if(TIME_GET_HOUR(alarmTask_Time) == TIME_GET_HOUR(clockInterface_Time) && TIME_GET_MINUTE(alarmTask_Time) == TIME_GET_MINUTE(clockInterface_Time) && alarmTask_PreClockMinute != TIME_GET_MINUTE(alarmTask_Time))
+		if(ClockInterface_InSettingMode())
+		{
+			
+		}
+		else if(TIME_GET_HOUR(alarmTask_Time) == TIME_GET_HOUR(clockInterface_Time) && TIME_GET_MINUTE(alarmTask_Time) == TIME_GET_MINUTE(clockInterface_Time) && alarmTask_PreClockMinute != TIME_GET_MINUTE(alarmTask_Time))
 		{
 			RingtoneManager_StartRing();
 		}
