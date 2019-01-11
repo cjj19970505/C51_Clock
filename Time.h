@@ -19,3 +19,4 @@ struct Time
 
 void Time_ToString(TIME *time, char hyphen, char hasDeciSecond, char *str);
 void Time_Add_1_Decisecond(TIME *time);
+void Time_Sub_1_Decisecond(TIME *time);

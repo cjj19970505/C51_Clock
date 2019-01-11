@@ -92,6 +92,10 @@ void SegScreen_Print_String(char *str)
 			{
 				segScreen_led[segIndex] = 0x40;
 			}
+			else if(str[segScreen_temp_i] == '_')
+			{
+				segScreen_led[segIndex] = 0x08;
+			}
 			else
 			{
 				segScreen_led[segIndex] = segScreen_led_table[str[segScreen_temp_i] - '0'];

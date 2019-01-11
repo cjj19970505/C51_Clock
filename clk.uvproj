@@ -526,6 +526,16 @@
               <FileType>1</FileType>
               <FilePath>.\RingtoneManager.c</FilePath>
             </File>
+            <File>
+              <FileName>CountdownTask.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\CountdownTask.c</FilePath>
+            </File>
+            <File>
+              <FileName>CountdownTask.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\CountdownTask.h</FilePath>
+            </File>
           </Files>
         </Group>
       </Groups>

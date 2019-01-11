@@ -5,10 +5,10 @@ Copyright 1995-2005 Keil Software, Inc.
 ------------------------------------------------------------------------------*/
 #include "Looper\\Looper.h"
 #include "SegScreen\\SegScreen.h"
-#include "ClockInterface.h"
 #include "StopwatchTask.h"
 #include "TaskSelector.h"
 #include "Time.h"
+#include "ClockInterface.h"
 #include "DateInterface.h"
 #include "TestTask.h"
 #include "Input.h"
@@ -54,6 +54,7 @@ void OnTimer1()
 {
 	ClockInterface_OnDeciClockTrigger();
 	StopwatchTask_OnDeciClockTrigger();
+	CountdownTask_OnDeciClockTrigger();
 }
 
 

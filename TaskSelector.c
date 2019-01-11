@@ -1,10 +1,12 @@
 #include "Looper\\Looper.h"
 #include "DateInterface.h"
+#include "Time.h"
 #include "ClockInterface.h"
 #include "StopwatchTask.h"
 #include "Input.h"
 #include "TaskSelector.h"
 #include "AlarmTask.h"
+#include "CountdownTask.h"
 
 #define TASKSELECTOR_KEYCODE INPUT_TOKEYCODE(4, 1)
 
@@ -34,6 +36,12 @@ void TaskSelector_LooperUpdate()
 		else if(taskSelector_Mode == TASKSELECTOR_MODE_ALARM)
 		{
 			AlarmTask_ExitTask();
+			CountdownTask_EnterTask();
+			taskSelector_Mode = TASKSELECTOR_MODE_COUNTDOWN;
+		}
+		else if(taskSelector_Mode == TASKSELECTOR_MODE_COUNTDOWN)
+		{
+			CountdownTask_ExitTask();
 			ClockInterface_EnterTask();
 			taskSelector_Mode = TASKSELECTOR_MODE_CLOCK;
 		}

@@ -6,6 +6,8 @@
 #include "Date.h"
 #include "TaskUtility.h"
 #include "TaskSelector.h"
+#include "ClockInterface.h"
+#include "RingtoneManager.h"
 #define IN_FOREGROUND (TASKSELECTOR_CURRENT_MODE == TASKSELECTOR_MODE_ALARM)
 #define KEYCODE_SETTING INPUT_TOKEYCODE(1,1)
 #define KEYCODE_SETTING_SHIFT_ITEM INPUT_TOKEYCODE(1,2)
@@ -13,14 +15,15 @@
 #define KEYCODE_SETTING_SETTING_SUB INPUT_TOKEYCODE(2,3)
 #define MODE_SETTING 1
 #define MODE_RUNNING 0
-#define MODE_EXIT 2
 #define SPARKING_DURATION 300
 #define SPARKING_STATE_SHOW 0
 #define SPARKING_STATE_HIDE 1
 #define SETTING_ITEM_HOUR 0
 #define SETTING_ITEM_MINUTE 1
 TIME alarmTask_Time;
-char alarmTask_Mode = MODE_EXIT;	//0:Run Setting
+char alarmTask_PreClockHour;
+char alarmTask_PreClockMinute;
+char alarmTask_Mode = MODE_RUNNING;	//0:Run Setting
 #define SETTING_ITEM TaskUtility_Public_Var_uChar1
 #define SETTING_ITEM_SPARK_TIMER TaskUtility_Public_Var_uChar2
 #define SETTING_ITEM_SPARKSTATE TaskUtility_Public_Var_uChar3
@@ -30,8 +33,8 @@ char alarmTask_Mode = MODE_EXIT;	//0:Run Setting
 //char SETTING_ITEM_SPARKSTATE = SPARKING_STATE_SHOW;
 void AlarmTask_Init()
 {
-	alarmTask_Mode = MODE_EXIT;
-	TIME_SET_HOUR(alarmTask_Time, 0);
+	alarmTask_Mode = MODE_RUNNING;
+	TIME_SET_HOUR(alarmTask_Time, 1);
 	TIME_SET_MINUTE(alarmTask_Time, 0);
 	TIME_SET_SECOND(alarmTask_Time, 0);
 }
@@ -46,12 +49,16 @@ void AlarmTask_LooperUpdate(LOOPER *looper)
 	}
 	if(alarmTask_Mode == MODE_RUNNING)
 	{
-		if(Input_GetKeyDown() == KEYCODE_SETTING)
+		if(Input_GetKeyDown() == KEYCODE_SETTING && IN_FOREGROUND)
 		{
 			alarmTask_Mode = MODE_SETTING;
 		}
+		if(TIME_GET_HOUR(alarmTask_Time) == TIME_GET_HOUR(clockInterface_Time) && TIME_GET_MINUTE(alarmTask_Time) == TIME_GET_MINUTE(clockInterface_Time) && alarmTask_PreClockMinute != TIME_GET_MINUTE(alarmTask_Time))
+		{
+			RingtoneManager_StartRing();
+		}
 	}
-	else if(alarmTask_Mode == MODE_SETTING)
+	else if(alarmTask_Mode == MODE_SETTING && IN_FOREGROUND)
 	{
 		SETTING_ITEM_SPARK_TIMER += looper->deltaTime;
 		if(SETTING_ITEM_SPARK_TIMER >= SPARKING_DURATION/2)
@@ -116,12 +123,15 @@ void AlarmTask_LooperUpdate(LOOPER *looper)
 				SEG_VIEW_ARRAY[4] = ' ';
 			}
 		}
-		
 	}
 	if(IN_FOREGROUND)
 	{
 		SegScreen_Print_String(SEG_VIEW_ARRAY);
 	}
+	
+	alarmTask_PreClockHour = TIME_GET_HOUR(clockInterface_Time);
+	alarmTask_PreClockMinute = TIME_GET_MINUTE(clockInterface_Time);
+	
 	
 }
 void AlarmTask_EnterTask()
@@ -130,7 +140,7 @@ void AlarmTask_EnterTask()
 }
 void AlarmTask_ExitTask()
 {
-	alarmTask_Mode = MODE_EXIT;
+	alarmTask_Mode = MODE_RUNNING;
 	SETTING_ITEM = 0;
 	SETTING_ITEM_SPARK_TIMER = 0;
 	SETTING_ITEM_SPARKSTATE = SPARKING_STATE_SHOW;

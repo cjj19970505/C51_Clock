@@ -44,3 +44,27 @@ void Time_Add_1_Decisecond(TIME *time)
 	}
 }
 
+void Time_Sub_1_Decisecond(TIME *time)
+{
+	TIME_SET_DECISECOND(*time ,TIME_GET_DECISECOND(*time)-1);
+	if(TIME_GET_DECISECOND(*time) < 0)
+	{
+		TIME_SET_DECISECOND(*time, 9);
+		TIME_SET_SECOND(*time, TIME_GET_SECOND(*time)-1);
+	}
+	if(TIME_GET_SECOND(*time) < 0)
+	{
+		TIME_SET_SECOND(*time, 59);
+		TIME_SET_MINUTE(*time, TIME_GET_MINUTE(*time)-1);
+	}
+	if(TIME_GET_MINUTE(*time) < 0)
+	{
+		TIME_SET_MINUTE(*time, 59);
+		TIME_SET_HOUR(*time, TIME_GET_HOUR(*time)-1);
+	}
+	if(TIME_GET_HOUR(*time) < 0 )
+	{
+		TIME_SET_HOUR(*time, 99);
+	}
+}
+
